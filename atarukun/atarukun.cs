@@ -19,13 +19,17 @@ namespace WindowsFormsApp1
         }
 
         //いっくんメソッド
-        public string ikkun(string yagi_value)
+        public string[] ikkun()
         {
-            //いっくんをいれる箱
-            string ikkun_value1;
+            //いっくんをいれる箱(配列バージョン)
+            string[] ikkun_value1 = new string[3];
 
-            //いっくんと八木君をくっつける
-            ikkun_value1 = "いっくん" + "と" + yagi_value;
+            ikkun_value1[0] = "いっくん1";
+            ikkun_value1[1] = "いっくん2";
+            ikkun_value1[2] = "いっくん3";
+
+            //文字列をくっつける
+            //ikkun_value1 = yagi_value;
 
             //値を戻す
             return ikkun_value1;
@@ -34,19 +38,32 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             //八木くんを入れる箱
-            string yagi_value;
+            //string yagi_value; 
 
             //結果を入れる箱
-            string result;
+            string[] result;
 
             //八木君を入れる
-            yagi_value = "八木くん";
+            //yagi_value = "八木くん";
 
             //いっくんメソッドを呼び出す
-            result = ikkun(yagi_value);
+            result = ikkun();
+
+            foreach (string item in result)
+            {
+                textBox1.Text = textBox1.Text + item;
+            }
 
             //テキストボックスに値をいれる
-            textBox1.Text = result;
+            //textBox1.Text = result;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            atarukun.Touroku.Touroku ataru = new atarukun.Touroku.Touroku();
+            ataru.Show();
+
 
         }
     }
