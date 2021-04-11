@@ -18,53 +18,38 @@ namespace WindowsFormsApp1
             
         }
 
-        //いっくんメソッド
-        public string[] ikkun()
-        {
-            //いっくんをいれる箱(配列バージョン)
-            string[] ikkun_value1 = new string[3];
-
-            ikkun_value1[0] = "いっくん1";
-            ikkun_value1[1] = "いっくん2";
-            ikkun_value1[2] = "いっくん3";
-
-            //文字列をくっつける
-            //ikkun_value1 = yagi_value;
-
-            //値を戻す
-            return ikkun_value1;
-        }
-
+        //抽選ボタン押下時のメソッド
         private void button1_Click(object sender, EventArgs e)
         {
-            //八木くんを入れる箱
-            //string yagi_value; 
 
-            //結果を入れる箱
-            string[] result;
+            //結果を格納する変数
+            string result;
 
-            //八木君を入れる
-            //yagi_value = "八木くん";
+            //抽選ボタンクラスのインスタンスを生成
+            atarukun.Chuusen.Chuusen ch = new atarukun.Chuusen.Chuusen();
 
-            //いっくんメソッドを呼び出す
-            result = ikkun();
+            //結果を格納
+            result = ch.Chuusen_Click();
 
-            foreach (string item in result)
-            {
-                textBox1.Text = textBox1.Text + item;
-            }
-
-            //テキストボックスに値をいれる
-            //textBox1.Text = result;
-
+            //テキストボックスに値を表示
+            textBox1.Text = result;
+            textBox2.Text = result;
+            textBox3.Text = result;
         }
 
+        //登録画面へ押下時のメソッド
         private void button3_Click(object sender, EventArgs e)
         {
             atarukun.Touroku.Touroku ataru = new atarukun.Touroku.Touroku();
             ataru.Show();
 
+        }
 
+        //閉じるボタン押下時のメソッド
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //フォームを閉じる
+            this.Close();
         }
     }
 }
