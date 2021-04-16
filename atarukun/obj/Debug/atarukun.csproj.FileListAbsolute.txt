@@ -10,7 +10,6 @@ D:\git\atarukun\obj\Debug\atarukun.pdb
 D:\git\atarukun\atarukun\bin\Debug\atarukun.exe.config
 D:\git\atarukun\atarukun\bin\Debug\atarukun.exe
 D:\git\atarukun\atarukun\bin\Debug\atarukun.pdb
-D:\git\atarukun\atarukun\obj\Debug\atarukun.csprojAssemblyReference.cache
 D:\git\atarukun\atarukun\obj\Debug\WindowsFormsApp1.Form1.resources
 D:\git\atarukun\atarukun\obj\Debug\atarukun.Properties.Resources.resources
 D:\git\atarukun\atarukun\obj\Debug\atarukun.csproj.GenerateResource.cache
