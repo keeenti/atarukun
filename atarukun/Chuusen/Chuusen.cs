@@ -56,18 +56,24 @@ namespace atarukun.Chuusen
             //想定される数字を配列に格納
             string[] arr = new string[130];
             string[] arr2 = new string[5];
-            for (int i = 0; i < text_value.Length; i++)
+
+            //テキストから最近の当選番号5つを取得し配列に格納
+            arr = text_value.Split(',');
+            //想定される数字を配列に格納
+            arr2 = Select_number.Split(',');
+
+            //最近の当選番号を想定される数字から削除
+            foreach (string arrvalue in arr)
             {
-                arr2[i] = Select_number[i].ToString();
-
-                for (int j = 0; j < Select_number.Length; i++)
+                //想定される数字分ループ
+                for (int i = 0; i < arr2.Length; i++)
                 {
-
-                    //テキストから取得した値の場合は格納しない
-                    if (arr2[i] != Select_number[j].ToString())
+                    string arrvalue2 = arr2[i];
+                    if (arrvalue == arrvalue2)
                     {
-                        arr[i] = Select_number[j].ToString();
+                        arrvalue2.Remove(i);
                     }
+                     
                 }
             }
 
@@ -75,7 +81,7 @@ namespace atarukun.Chuusen
             string strSeparator = ",";                        
             
             // 文字列の配列を指定した文字列を付け加えて連結する
-            Number_result = string.Join(strSeparator, arr);
+            Number_result = string.Join(strSeparator, arr2);
 
             //絞り込み結果
             return Number_result;
