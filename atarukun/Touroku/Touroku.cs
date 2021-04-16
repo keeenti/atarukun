@@ -22,26 +22,77 @@ namespace atarukun.Touroku
         private void button1_Click(object sender, EventArgs e)
         {
 
-            // 変数
-            string filepath = "D:\\git\\atarukun\\atarukun\\DB\\TousenNumber.txt";
+            string hantei;
+            hantei = textBox1.Text;
+            hantei = hantei.Replace("\r", "").Replace("\n", "");
 
-            // 文字コードを指定
-            Encoding enc = Encoding.GetEncoding("Shift_JIS");
+            //判定結果がfalseだった場合
+            if (IsNumeric(textBox1.Text) == false)
+            {
+                //メッセージボックスを表示する
+                MessageBox.Show("三桁の数字を入力してください。",
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
-            // ファイルを開く
-            StreamWriter writer = new StreamWriter(filepath, false, enc);
+                return;
+            }
 
-            // テキストを書き込む
-            writer.WriteLine(textBox1.Text);
+            if (hantei.Length == 3)
+            {
+                // 文字コードを指定
+                Encoding enc = Encoding.GetEncoding("Shift_JIS");
 
-            // ファイルを閉じる
-            writer.Close();
+                // ファイルを開く
 
-            //メッセージボックスを表示
-            MessageBox.Show("登録しました",
-               "登録完了",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.None);
+                // ファイルパスの変数
+                string filepath = "D:\\git\\atarukun\\atarukun\\DB\\TousenNumber.txt";
+      
+
+                // 文字コードを指定してファイルを開く
+                StreamReader sr = new StreamReader(filepath, Encoding.GetEncoding("Shift_JIS"));
+
+                //文字を読み込む
+                string Tousen = sr.ReadToEnd();
+
+                Tousen = Tousen.Replace("\r", "").Replace("\n", "");
+
+                //ファイルを閉じる
+                sr.Close();
+
+                //変数Tousenのもっとも古い数値以外を抜き出す
+                Tousen = Tousen.Substring(4);
+
+                //変数Tousenにテキストボックスの内容を書き加える
+                Tousen = Tousen + "," + textBox1.Text; 
+
+                //ファイルを開く
+                StreamWriter writer = new StreamWriter(filepath, false, enc);
+
+                // テキストを書き込む
+                writer.WriteLine(Tousen);
+
+                // ファイルを閉じる
+                writer.Close();
+
+                //メッセージボックスを表示
+                MessageBox.Show("登録しました",
+                   "登録完了",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.None);
+            }
+
+            else
+            {
+                //メッセージボックスを表示する
+                MessageBox.Show("三桁の数字を入力してください。",
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+
+
         }
 
         //昨日の当選番号を確認ボタン押下時のメソッド
@@ -72,5 +123,20 @@ namespace atarukun.Touroku
                MessageBoxIcon.None);
 
         }
+
+        //テキストボックス内の入力値が数字かどうか判定するメソッド
+        public static bool IsNumeric(string stTarget)
+        {
+            double dNullable;
+
+            return double.TryParse(
+                stTarget,
+                System.Globalization.NumberStyles.Any,
+                null,
+                out dNullable
+            );
+        }
     }
+    
+
 }
