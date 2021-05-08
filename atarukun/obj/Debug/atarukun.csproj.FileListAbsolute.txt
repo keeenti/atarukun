@@ -17,3 +17,4 @@ D:\git\atarukun\atarukun\obj\Debug\atarukun.csproj.CoreCompileInputs.cache
 D:\git\atarukun\atarukun\obj\Debug\atarukun.exe
 D:\git\atarukun\atarukun\obj\Debug\atarukun.pdb
 D:\git\atarukun\atarukun\obj\Debug\atarukun.Touroku.Touroku.resources
+D:\git\atarukun\atarukun\obj\Debug\atarukun.csprojAssemblyReference.cache
