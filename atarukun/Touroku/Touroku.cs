@@ -91,7 +91,8 @@ namespace atarukun.Touroku
                 //文字を読み込む
                 string Tousen = sr.ReadToEnd();
 
-                Tousen = Tousen.Replace("\r", "").Replace("\n", "");
+                //改行コードを空白に置き換える
+                //Tousen = Tousen.Replace("\r", "").Replace("\n", "");
 
                 //ファイルを閉じる
                 sr.Close();
@@ -207,16 +208,16 @@ namespace atarukun.Touroku
                 {
                     return false;
                 }
-                else if (DateSlashHantei1 != "/" & DateSlashHantei2 != "/")
+                else if (DateSlashHantei1 != "/" | DateSlashHantei2 != "/")
                 {
                     return false;
 
                 }
-                else if (DateHantei1.Length != 4 & DateHantei2.Length != 2 & DateHantei3.Length != 2)
+                else if (DateHantei1.Length != 4 | DateHantei2.Length != 2 | DateHantei3.Length != 2)
                 {
                     return false;
                 }
-                else if (IsNumeric(DateHantei1) == false & IsNumeric(DateHantei2) == false & IsNumeric(DateHantei3) == false)
+                else if (IsNumeric(DateHantei1) == false | IsNumeric(DateHantei2) == false | IsNumeric(DateHantei3) == false)
                 {
                     return false;
                 }
@@ -225,7 +226,7 @@ namespace atarukun.Touroku
                     return true;
                 }
             }
-            catch (ArgumentOutOfRangeException e) 
+            catch (ArgumentOutOfRangeException) 
             {
                 MessageBox.Show("例外が発生しました。",
                     "エラー",
@@ -234,6 +235,21 @@ namespace atarukun.Touroku
 
                 return false;
               }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //フォームを閉じる
+            this.Close();
+
+            //atarukun画面を開く
+            WindowsFormsApp1.Form1 fo = new WindowsFormsApp1.Form1();
+            fo.Visible = true;
+        }
+
+        private void Touroku_Load(object sender, EventArgs e)
+        {
+            
         }
     }
     
