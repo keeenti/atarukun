@@ -42,7 +42,7 @@ namespace WindowsFormsApp1
         {
             atarukun.Touroku.Touroku ataru = new atarukun.Touroku.Touroku();
             ataru.Show();
-
+            this.Hide();
         }
 
         //閉じるボタン押下時のメソッド
@@ -50,6 +50,12 @@ namespace WindowsFormsApp1
         {
             //フォームを閉じる
             this.Close();
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

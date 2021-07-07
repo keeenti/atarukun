@@ -48,6 +48,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "閉じる";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -143,6 +144,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Touroku";
             this.Text = "Touroku";
+            this.Load += new System.EventHandler(this.Touroku_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

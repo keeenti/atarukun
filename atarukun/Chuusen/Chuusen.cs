@@ -58,7 +58,7 @@ namespace atarukun.Chuusen
             string[] arr2 = new string[5];
 
             //テキストから最近の当選番号5つを取得し配列に格納
-            arr = text_value.Split(',');
+            arr = Get_OldNumber(text_value);
             //想定される数字を配列に格納
             arr2 = Select_number.Split(',');
 
@@ -73,13 +73,13 @@ namespace atarukun.Chuusen
                     {
                         arrvalue2.Remove(i);
                     }
-                     
+
                 }
             }
 
             //配列からカンマ区切りで値を取得
-            string strSeparator = ",";                        
-            
+            string strSeparator = ",";
+
             // 文字列の配列を指定した文字列を付け加えて連結する
             Number_result = string.Join(strSeparator, arr2);
 
@@ -112,7 +112,27 @@ namespace atarukun.Chuusen
             return Select_number;
 
         }
+        public string[] Get_OldNumber(string num)
+        {
+            string tousennum;
+            string resultnum = "";
+            string[] resultnum2 = new string[100];
 
-
+            //引数numの中身を、改行コードをカンマに変換してtousennnumに代入する
+            tousennum = num.Replace("\r", ",").Replace("\n", "");
+            //配列変数linesに、変数tousennumの中身をカンマ区切りで代入する
+            string[] lines = tousennum.Split(',');
+            //配列の中から三桁数字のものを抽出する
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Length == 3)
+                {
+                    resultnum = resultnum + lines[i];
+                }
+            }
+            resultnum = String.Format("{0:#,0}", int.Parse(resultnum));
+            resultnum2 = resultnum.Split(',');
+            return resultnum2;
+        }
     }
 }
