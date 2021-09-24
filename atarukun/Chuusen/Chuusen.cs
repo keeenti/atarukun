@@ -11,6 +11,11 @@ namespace atarukun.Chuusen
     //抽選結果クラス
     class Chuusen
     {
+        public int Onetimes = 0;
+        public int Twotimes = 0;
+        public int Threetimes = 0;
+        public int Fourtimes = 0;
+
         //抽選ボタン押下時のメソッド
         public string Chuusen_Click()
         {
@@ -54,85 +59,185 @@ namespace atarukun.Chuusen
             Select_number = Get_Number();
 
             //想定される数字を配列に格納
-            string[] arr = new string[130];
-            string[] arr2 = new string[5];
+            string[] nChuusen = new string[130];
+            string[] nGoukei = new string[130];
+            string[] nTousen = new string[5];
 
             //テキストから最近の当選番号5つを取得し配列に格納
-            arr = Get_OldNumber(text_value);
+            nChuusen = Get_ChuusenNumber(Select_number);
+            nGoukei = Get_GoukeiNumber(Select_number);
             //想定される数字を配列に格納
-            arr2 = Select_number.Split(',');
+            nTousen = Get_OldNumber(text_value);
+            int nGoukeiBySum = 0;
 
             //最近の当選番号を想定される数字から削除
-            foreach (string arrvalue in arr)
+            for (int i = 0; i < nTousen.Length; i++)
             {
+                string arrvalue = nChuusen[i];
                 //想定される数字分ループ
-                for (int i = 0; i < arr2.Length; i++)
+                for (int j = 0; j < nChuusen.Length; j++)
                 {
-                    string arrvalue2 = arr2[i];
-                    if (arrvalue == arrvalue2)
+                    nGoukeiBySum = Int32.Parse(nGoukei[j]);
+                    string arrvalue2 = nTousen[j];
+                    //3桁に分けるための配列の定義
+                    int[] Keta2 = new int[3];
+                    //配列に3桁の値を格納
+                    Keta2[0] = Int32.Parse(arrvalue2.Substring(0, 1));
+                    Keta2[1] = Int32.Parse(arrvalue2.Substring(1, 1));
+                    Keta2[2] = Int32.Parse(arrvalue2.Substring(2, 1));
+                    //3桁の和を格納
+                    int nGoukeiBySum2 = Keta2.Sum();
+                    //合計の番号を比較
+                    if (nGoukeiBySum == nGoukeiBySum2)
                     {
-                        arrvalue2.Remove(i);
+                        switch (nGoukeiBySum)
+                        {
+                            case 5: 
+                                break;   
+                            case 6: 
+                                break;  
+                            case 7: 
+                                break;  
+                            case 8: 
+                                break;  
+                            case 19: 
+                                break;  
+                            case 20: 
+                                break;  
+                            case 21:
+                                break; 
+                            case 22: 
+                                break;  
+                            default:
+                                Get_GoukeiRemove(nGoukeiBySum,nChuusen,nGoukei);
+
+
+                             break; 
+                        }
+
+                        if (arrvalue == arrvalue2)
+                        {
+                            arrvalue2.Remove(j);
+                        }
+
+                    }
+                }
+            }
+                //配列からカンマ区切りで値を取得
+                string strSeparator = ",";
+
+                // 文字列の配列を指定した文字列を付け加えて連結する
+                Number_result = string.Join(strSeparator, nChuusen);
+
+                //絞り込み結果
+                return Number_result;
+
+            }
+
+            //想定される数字を取得するメソッド
+            public string Get_Number()
+            {
+                string Select_number;
+
+                string filePath2 = "D:\\git\\atarukun\\atarukun\\Chuusen\\Select_Number.txt";
+                //テキストから値を取得
+                if (File.Exists(filePath2))
+                {
+                    StreamReader sr = new StreamReader(filePath2, Encoding.GetEncoding("Shift_JIS"));
+
+                    Select_number = sr.ReadToEnd();
+
+                    sr.Close();
+                }
+                else
+                {
+                    MessageBox.Show("想定される数字が存在しません");
+                    Select_number = "";
+                }
+
+                return Select_number;
+
+            }
+            public string[] Get_OldNumber(string num)
+            {
+                string tousennum;
+                string resultnum = "";
+                string[] resultnum2 = new string[100];
+
+                //引数numの中身を、改行コードをカンマに変換してtousennnumに代入する
+                tousennum = num.Replace("\r", ",").Replace("\n", "");
+                //配列変数linesに、変数tousennumの中身をカンマ区切りで代入する
+                string[] lines = tousennum.Split(',');
+                //配列の中から三桁数字のものを抽出する
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].Length == 3)
+                    {
+                        resultnum = resultnum + lines[i];
+                    }
+                }
+                resultnum = String.Format("{0:#,0}", int.Parse(resultnum));
+                resultnum2 = resultnum.Split(',');
+                return resultnum2;
+            }
+            //予め絞り込んだ抽選番号を取得
+            public string[] Get_ChuusenNumber(string num)
+            {
+                string tousennum;
+                string resultnum = "";
+                string[] resultnum2 = new string[200];
+
+                //引数numの中身を、改行コードをカンマに変換してtousennnumに代入する
+                tousennum = num.Replace("\r", ",").Replace("\n", "");
+                //配列変数linesに、変数tousennumの中身をカンマ区切りで代入する
+                string[] lines = tousennum.Split(',');
+                //配列の中から三桁数字のものを抽出する
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].Length == 3)
+                    {
+                        resultnum = resultnum + lines[i];
+                    }
+                }
+                resultnum = String.Format("{0:#,0}", int.Parse(resultnum));
+                resultnum2 = resultnum.Split(',');
+                return resultnum2;
+            }
+            //予め絞り込んだ抽選番号の和を取得
+            public string[] Get_GoukeiNumber(string num)
+            {
+                string tousennum;
+                string resultnum = "";
+                string[] resultnum2 = new string[200];
+
+                //引数numの中身を、改行コードをカンマに変換してtousennnumに代入する
+                tousennum = num.Replace("\r", ",").Replace("\n", "");
+                //配列変数linesに、変数tousennumの中身をカンマ区切りで代入する
+                string[] lines = tousennum.Split(',');
+                //配列の中から三桁数字のものを抽出する
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].Length == 1 || lines[i].Length == 2)
+                    {
+                        resultnum = resultnum + lines[i];
+                    }
+                }
+                resultnum = String.Format("{0:#,0}", int.Parse(resultnum));
+                resultnum2 = resultnum.Split(',');
+                return resultnum2;
+            }
+            public string[] Get_GoukeiRemove(int num,string[] nChuusens)
+            {
+                for (int i = 0; i < nChuusens.Length; i++)
+                {
+                    if (num == nChuusens[i])
+                    {
+
                     }
 
                 }
+
             }
 
-            //配列からカンマ区切りで値を取得
-            string strSeparator = ",";
-
-            // 文字列の配列を指定した文字列を付け加えて連結する
-            Number_result = string.Join(strSeparator, arr2);
-
-            //絞り込み結果
-            return Number_result;
-
-        }
-
-        //想定される数字を取得するメソッド
-        public string Get_Number()
-        {
-            string Select_number;
-
-            string filePath2 = "D:\\git\\atarukun\\atarukun\\Chuusen\\Select_Number.txt";
-            //テキストから値を取得
-            if (File.Exists(filePath2))
-            {
-                StreamReader sr = new StreamReader(filePath2, Encoding.GetEncoding("Shift_JIS"));
-
-                Select_number = sr.ReadToEnd();
-
-                sr.Close();
-            }
-            else
-            {
-                MessageBox.Show("想定される数字が存在しません");
-                Select_number = "";
-            }
-
-            return Select_number;
-
-        }
-        public string[] Get_OldNumber(string num)
-        {
-            string tousennum;
-            string resultnum = "";
-            string[] resultnum2 = new string[100];
-
-            //引数numの中身を、改行コードをカンマに変換してtousennnumに代入する
-            tousennum = num.Replace("\r", ",").Replace("\n", "");
-            //配列変数linesに、変数tousennumの中身をカンマ区切りで代入する
-            string[] lines = tousennum.Split(',');
-            //配列の中から三桁数字のものを抽出する
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (lines[i].Length == 3)
-                {
-                    resultnum = resultnum + lines[i];
-                }
-            }
-            resultnum = String.Format("{0:#,0}", int.Parse(resultnum));
-            resultnum2 = resultnum.Split(',');
-            return resultnum2;
-        }
     }
 }
